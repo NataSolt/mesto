@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./pages/index.css" />
+    <title>Места России</title>
+  </head>
+  <body class="page">
+    <div class="container">
+      <header class="header">
+        <img
+          src="./images/logo-header.svg"
+          alt="надпись на английском языке место Россия"
+          class="header__logo"
+        />
+      </header>
+      <main class="content">
+        <section class="profile">
+          <img
+            src="./images/Avatar.svg"
+            alt="портрет Жак-Ив Кусто"
+            class="profile__avatar"
+          />
+          <div class="profile__info">
+            <div class="profile__container">
+              <h1 class="profile__name">Жак-Ив Кусто</h1>
+              <button type="button" class="profile__add-button"></button>
+            </div>
+            <p class="profile__job">Исследователь океана</p>
+          </div>
+          <button class="button-card"></button>
+        </section>
+        <section class="popup">
+          <form class="popup__container">
+            <h2 class="popup__title">Редактировать профиль</h2>
+            <input
+              type="text"
+              name="name"
+              class="popup__text popup__name"
+              value="Жак-Ив Кусто"
+            />
+            <input
+              type="text"
+              name="text"
+              class="popup__text popup__job"
+              value="Исследователь океана"
+            />
+            <button class="popup__container-button" type="submit">
+              Сохранить
+            </button>
+            <button type="button" class="popup__close"></button>
+          </form>
+        </section>
+        <section class="cards">
+          <div class="card">
+            <img
+              src="./images/karachaevo-cherckesk.png"
+              alt="Древний храм на фоне гор"
+              class="card__image"
+            />
+            <div class="card__group">
+              <h2 class="card__title">Карачаевск</h2>
+              <button class="card__like"></button>
+            </div>
+          </div>
+          <div class="card">
+            <img
+              src="./images/elbrus.png"
+              alt="долина и на горизонте очертание горы"
+              class="card__image"
+            />
+            <div class="card__group">
+              <h2 class="card__title">Гора Эльбрус</h2>
+              <button class="card__like"></button>
+            </div>
+          </div>
+          <div class="card">
+            <img
+              src="./images/dombay.png"
+              alt="склоны нескольких гор и главный пик покрытый снегом в центре"
+              class="card__image"
+            />
+            <div class="card__group">
+              <h2 class="card__title">Домбай</h2>
+              <button class="card__like"></button>
+            </div>
+          </div>
+          <div class="card">
+            <img
+              src="./images/elbrus.png"
+              alt="долина и на горизонте очертание горы"
+              class="card__image"
+            />
+            <div class="card__group">
+              <h2 class="card__title">Гора Эльбрус</h2>
+              <button class="card__like"></button>
+            </div>
+          </div>
+          <div class="card">
+            <img
+              src="./images/dombay.png"
+              alt="склоны нескольких гор и главный пик покрытый снегом в центре"
+              class="card__image"
+            />
+            <div class="card__group">
+              <h2 class="card__title">Домбай</h2>
+              <button class="card__like"></button>
+            </div>
+          </div>
+          <div class="card">
+            <img
+              src="./images/karachaevo-cherckesk.png"
+              alt="Древний храм на фоне гор"
+              class="card__image"
+            />
+            <div class="card__group">
+              <h2 class="card__title">Карачаево-Черкеск</h2>
+              <button class="card__like"></button>
+            </div>
+          </div>
+        </section>
+      </main>
+      <footer class="footer">
+        <div class="footer__content">© 2020 Mesto Russia</div>
+      </footer>
+      <script src="./scripts/index.js"></script>
+    </div>
+  </body>
+</html>

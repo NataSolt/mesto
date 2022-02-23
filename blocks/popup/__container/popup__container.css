@@ -1,0 +1,28 @@
+.popup__container {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  background: #ffffff;
+  width: 358px;
+  height: 259px;
+  border-radius: 10px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  padding: 34px 36px 37px 36px;
+}
+
+@media (max-width: 560px) {
+  .popup__container {
+    width: 240px;
+  }
+}
+
+@media (max-width: 320px) {
+  .popup__container {
+    width: 238px;
+    height: 272px;
+    top: 52%;
+    padding: 25px 22px;
+  }
+}

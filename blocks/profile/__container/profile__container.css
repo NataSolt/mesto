@@ -1,0 +1,9 @@
+.profile__container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  margin: 0 0 0 46px;
+  max-width: 217px;
+  justify-content: center;
+}
