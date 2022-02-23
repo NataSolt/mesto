@@ -3,7 +3,14 @@
   flex-direction: row;
   flex-wrap: nowrap;
   align-items: center;
-  margin: 0 0 0 46px;
-  max-width: 217px;
+  margin: 0;
+  max-width: 336px;
   justify-content: center;
+}
+
+@media (max-width: 320px) {
+  .profile__container {
+    max-width: 217px;
+    margin: 0 0 0 46px;
+  }
 }
