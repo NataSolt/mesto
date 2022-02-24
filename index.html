@@ -25,35 +25,14 @@
           <div class="profile__info">
             <div class="profile__container">
               <h1 class="profile__name">Жак-Ив Кусто</h1>
-              <button type="button" class="profile__add-button"></button>
+              <button type="button" class="profile__add-button" aria-label="открытие формы редактирования имя и работы"></button>
             </div>
             <p class="profile__job">Исследователь океана</p>
           </div>
-          <button class="button-card"></button>
-        </section>
-        <section class="popup">
-          <form class="popup__container">
-            <h2 class="popup__title">Редактировать профиль</h2>
-            <input
-              type="text"
-              name="name"
-              class="popup__text popup__name"
-              value="Жак-Ив Кусто"
-            />
-            <input
-              type="text"
-              name="text"
-              class="popup__text popup__job"
-              value="Исследователь океана"
-            />
-            <button class="popup__container-button" type="submit">
-              Сохранить
-            </button>
-            <button type="button" class="popup__close"></button>
-          </form>
+          <button type="button" class="profile__button-card" aria-label="открытие формы добавления карточек"></button>
         </section>
         <section class="cards">
-          <div class="card">
+          <article class="card">
             <img
               src="./images/karachaevo-cherckesk.png"
               alt="Древний храм на фоне гор"
@@ -61,10 +40,10 @@
             />
             <div class="card__group">
               <h2 class="card__title">Карачаевск</h2>
-              <button class="card__like"></button>
+              <button class="card__like" aria-label="нравится"></button>
             </div>
-          </div>
-          <div class="card">
+          </article>
+          <article class="card">
             <img
               src="./images/elbrus.png"
               alt="долина и на горизонте очертание горы"
@@ -72,10 +51,10 @@
             />
             <div class="card__group">
               <h2 class="card__title">Гора Эльбрус</h2>
-              <button class="card__like"></button>
+              <button class="card__like" aria-label="нравится"></button>
             </div>
-          </div>
-          <div class="card">
+          </article>
+          <article class="card">
             <img
               src="./images/dombay.png"
               alt="склоны нескольких гор и главный пик покрытый снегом в центре"
@@ -83,10 +62,10 @@
             />
             <div class="card__group">
               <h2 class="card__title">Домбай</h2>
-              <button class="card__like"></button>
+              <button class="card__like" aria-label="нравится"></button>
             </div>
-          </div>
-          <div class="card">
+          </article>
+          <article class="card">
             <img
               src="./images/elbrus.png"
               alt="долина и на горизонте очертание горы"
@@ -94,10 +73,10 @@
             />
             <div class="card__group">
               <h2 class="card__title">Гора Эльбрус</h2>
-              <button class="card__like"></button>
+              <button class="card__like" aria-label="нравится"></button>
             </div>
-          </div>
-          <div class="card">
+          </article>
+          <article class="card">
             <img
               src="./images/dombay.png"
               alt="склоны нескольких гор и главный пик покрытый снегом в центре"
@@ -105,10 +84,10 @@
             />
             <div class="card__group">
               <h2 class="card__title">Домбай</h2>
-              <button class="card__like"></button>
+              <button class="card__like" aria-label="нравится"></button>
             </div>
-          </div>
-          <div class="card">
+          </article>
+          <article class="card">
             <img
               src="./images/karachaevo-cherckesk.png"
               alt="Древний храм на фоне гор"
@@ -116,14 +95,37 @@
             />
             <div class="card__group">
               <h2 class="card__title">Карачаево-Черкеск</h2>
-              <button class="card__like"></button>
+              <button class="card__like" aria-label="нравится"></button>
             </div>
-          </div>
+          </article>
         </section>
       </main>
       <footer class="footer">
-        <div class="footer__content">© 2020 Mesto Russia</div>
+        <p class="footer__content">© 2020 Mesto Russia</p>
       </footer>
+      <section class="popup">
+        <div class="popup__container">
+          <h2 class="popup__title">Редактировать профиль</h2>
+          <form class="popup__form" name="form-profile"> 
+          <input
+            type="text"
+            name="name"
+            class="popup__text popup__text_type_name"
+            value="Жак-Ив Кусто"
+          />
+          <input
+            type="text"
+            name="text"
+            class="popup__text popup__text_type_job"
+            value="Исследователь океана"
+          />
+          <button class="popup__container-button" aria-label="кнопка отправить" type="submit">
+            Сохранить
+          </button>
+        </form>
+          <button type="button" class="popup__close" aria-label="крест отмена"></button>
+        </div>
+      </section>
       <script src="./scripts/index.js"></script>
     </div>
   </body>
