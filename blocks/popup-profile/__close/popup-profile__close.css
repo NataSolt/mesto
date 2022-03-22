@@ -1,4 +1,4 @@
-.popup__close {
+.popup-profile__close {
   background-image: url(../../../images/Close\ Icon.svg);
   background-repeat: no-repeat;
   background-color: transparent;
@@ -14,12 +14,12 @@
   transition: opacity 0.3s ease;
 }
 
-.popup__close:hover {
+.popup-profile__close:hover {
   opacity: 0.6;
 }
 
 @media (max-width: 560px) {
-  .popup__close {
+  .popup-profile__close {
     width: 20px;
     height: 20px;
     right: 0;

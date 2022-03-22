@@ -1,4 +1,4 @@
-.popup__container-button {
+.popup-profile__container-button {
   width: 100%;
   min-height: 50px;
   display: flex;
@@ -17,12 +17,12 @@
   border: none;
 }
 
-.popup__container-button:hover {
+.popup-profile__container-button:hover {
   opacity: 0.8;
 }
 
 @media (max-width: 320px) {
-  .popup__container-button {
+  .popup-profile__container-button {
     min-width: 238px;
     min-height: 46px;
     font-size: 14px;

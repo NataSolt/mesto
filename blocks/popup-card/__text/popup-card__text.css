@@ -1,4 +1,4 @@
-.popup__text {
+.popup-card__text {
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   width: 100%;
   border-top: none;
@@ -11,12 +11,12 @@
   font-weight: normal;
 }
 
-.popup__text:last-of-type {
+.popup-card__text:last-of-type {
   margin-bottom: 48px;
 }
 
 @media (max-width: 320px) {
-  .popup__text:last-of-type {
+  .popup-card__text:last-of-type {
     margin-bottom: 45px;
   }
 }
