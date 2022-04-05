@@ -32,16 +32,6 @@ const bigImg = document.querySelector(".popup-img__photo");
 //подпись к картинке
 const imgCaption = document.querySelector(".popup-img__caption");
 
-//попапы открытие
-const openPopup = function (popup) {
-  popup.classList.add("popup_opened");
-};
-
-//попапы закрытие
-function closePopup(popup) {
-  popup.classList.remove("popup_opened");
-}
-
 //создание карточки----------------------------------------------------------------
 function renderCard(cardName, cardLink) {
   //шаблон карточки
@@ -94,7 +84,7 @@ function addCardSubmitHandler(evt) {
 
 // открытие попапа картинки
 function openImg(event) {
-  imgCaption.textContent = event.target.textContent;
+  imgCaption.textContent = event.target.alt;
   bigImg.src = event.target.src;
   bigImg.alt = event.target.alt;
   openPopup(popupImage);
@@ -110,6 +100,8 @@ function handleProfileAddBtnClick() {
 //фукция попапа карточки
 function handleProfileBtnCardClick() {
   openPopup(popupCard);
+  inputTitle.value = "";
+  inputLink.value = "";
 }
 
 //функция попапа закрытия профайла
@@ -141,3 +133,75 @@ popupProfileClose.addEventListener("click", handleProfileCloseClick);
 popupCardClose.addEventListener("click", handlePopupCardCloseClick);
 //слушатель закрытие попапа картинки
 popupImgClose.addEventListener("click", handlePopupImgCloseClick);
+
+//слушатель закрытие попапов escape
+const closePopupEsc = (popup) => {
+  document.removeEventListener("keydown", handleEscUp); // удаляем событие keydown
+  popup.classList.remove("popup_opened"); // скрываем попап
+};
+// И дальше внутри коллбэка у нас есть объект event и мы можем узнать в каком месте произошел клик:
+const handleEscUp = (evt) => {
+  //evt.preventDefault();
+  const activePopup = document.querySelector(".popup_opened");
+  if (evt.key === "Escape") {
+    closePopupEsc(activePopup);
+  }
+};
+
+//попапы открытие
+const openPopup = function (popup) {
+  popup.classList.add("popup_opened");
+  document.addEventListener("keydown", handleEscUp);
+};
+
+//попапы закрытие
+function closePopup(popup) {
+  popup.classList.remove("popup_opened");
+  closeErrorMessage();
+}
+
+//функция закрытия попап картинки на оверлее
+popupImage.addEventListener("click", (evt) => {
+  if (
+    evt.target.classList.contains("popup") ||
+    evt.target.classList.contains("popup__close")
+  ) {
+    // закрываем только тогда, когда надо, т.е. только при том клике, которые происходит по нужному элементу
+    closePopup(popupImage);
+  }
+});
+
+//функция закрытия попап профайл на оверлее
+popupProfile.addEventListener("click", (evt) => {
+  if (
+    evt.target.classList.contains("popup") ||
+    evt.target.classList.contains("popup__close")
+  ) {
+    // закрываем только тогда, когда надо, т.е. только при том клике, которые происходит по нужному элементу
+    closePopup(popupProfile);
+  }
+});
+
+//функция закрытия попап кард на оверлее
+popupCard.addEventListener("click", (evt) => {
+  if (
+    evt.target.classList.contains("popup") ||
+    evt.target.classList.contains("popup__close")
+  ) {
+    // закрываем только тогда, когда надо, т.е. только при том клике, которые происходит по нужному элементу
+    closePopup(popupCard);
+  }
+});
+
+//очищение сообщения об ошибке
+function closeErrorMessage() {
+  const errorMessage = document.querySelectorAll(".popup__input-error_active");
+  errorMessage.forEach((item) => {
+    item.textContent = "";
+    item.classList.remove("popup__input-error_active");
+  });
+  const errorBorder = document.querySelectorAll(".popup__border-error");
+  errorBorder.forEach((item) => {
+    item.classList.remove("popup__border-error");
+  });
+}
