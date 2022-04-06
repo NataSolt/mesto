@@ -1,11 +1,9 @@
 // кнопка открытия попапа
-const popup = document.querySelectorAll(".popup");
 const profileAddBtn = document.querySelector(".profile__add-button");
 const profileBtnCard = document.querySelector(".profile__button-card");
 //попап
 const popupProfile = document.querySelector(".popup-profile");
 const popupCard = document.querySelector(".popup-card");
-const popupImg = document.querySelector(".card-img");
 //кнопка закрытие попапа
 const popupProfileClose = document.querySelector(".popup-profile__close");
 const popupCardClose = document.querySelector(".popup-card__close");
@@ -32,10 +30,11 @@ const bigImg = document.querySelector(".popup-img__photo");
 //подпись к картинке
 const imgCaption = document.querySelector(".popup-img__caption");
 
+
+
 //создание карточки----------------------------------------------------------------
 function renderCard(cardName, cardLink) {
   //шаблон карточки
-  const cardTemplate = document.querySelector(".card-template").content;
   const card = cardTemplate.querySelector(".card").cloneNode(true); //клонируем
   const cardImg = card.querySelector(".card__image");
   card.querySelector(".card__title").textContent = cardName; //текст
@@ -95,19 +94,23 @@ function handleProfileAddBtnClick() {
   openPopup(popupProfile);
   inputName.value = profileName.textContent;
   inputJob.value = profileJob.textContent;
+  closeErrorMessage();
 }
+
 
 //фукция попапа карточки
 function handleProfileBtnCardClick() {
   openPopup(popupCard);
   inputTitle.value = "";
   inputLink.value = "";
+  closeErrorMessage();
+  disabledBtn();
 }
 
 //функция попапа закрытия профайла
 function handleProfileCloseClick() {
   closePopup(popupProfile);
-}
+  }
 
 //функция закрытие попапа карточки
 function handlePopupCardCloseClick() {
@@ -117,6 +120,7 @@ function handlePopupCardCloseClick() {
 //функция закрытие попапа картинки
 function handlePopupImgCloseClick() {
   closePopup(popupImage);
+
 }
 
 //слушатель отправки формы карточки
@@ -141,9 +145,9 @@ const closePopupEsc = (popup) => {
 };
 // И дальше внутри коллбэка у нас есть объект event и мы можем узнать в каком месте произошел клик:
 const handleEscUp = (evt) => {
-  //evt.preventDefault();
-  const activePopup = document.querySelector(".popup_opened");
+  
   if (evt.key === "Escape") {
+    const activePopup = document.querySelector(".popup_opened");
     closePopupEsc(activePopup);
   }
 };
@@ -157,8 +161,8 @@ const openPopup = function (popup) {
 //попапы закрытие
 function closePopup(popup) {
   popup.classList.remove("popup_opened");
-  closeErrorMessage();
-}
+  document.removeEventListener('keydown', handleEscUp);
+  }
 
 //функция закрытия попап картинки на оверлее
 popupImage.addEventListener("click", (evt) => {
@@ -193,15 +197,3 @@ popupCard.addEventListener("click", (evt) => {
   }
 });
 
-//очищение сообщения об ошибке
-function closeErrorMessage() {
-  const errorMessage = document.querySelectorAll(".popup__input-error_active");
-  errorMessage.forEach((item) => {
-    item.textContent = "";
-    item.classList.remove("popup__input-error_active");
-  });
-  const errorBorder = document.querySelectorAll(".popup__border-error");
-  errorBorder.forEach((item) => {
-    item.classList.remove("popup__border-error");
-  });
-}

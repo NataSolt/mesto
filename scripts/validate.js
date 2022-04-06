@@ -54,9 +54,11 @@ const toggleButtonState = (inputList, buttonElement, config) => {
   // Если есть хотя бы один невалидный инпут
   if (hasInvalidInput(inputList)) {
     // сделай кнопку неактивной
+    buttonElement.setAttribute("disabled", true);
     buttonElement.classList.add(config.inactiveButton);
   } else {
     // иначе сделай кнопку активной
+    buttonElement.removeAttribute("disabled");
     buttonElement.classList.remove(config.inactiveButton);
   }
 };
@@ -109,6 +111,26 @@ const hasInvalidInput = (inputList) => {
     return !inputElement.validity.valid;
   });
 };
+
+// функция блокирования кнопки попапа карточки при открытии
+function disabledBtn() {
+  const popupSubmitCard = document.querySelector(".popup__submit-card");
+  popupSubmitCard.setAttribute("disabled", true);
+  popupSubmitCard.classList.add("popup__button_inactive");
+}
+
+//очищение сообщения об ошибке
+function closeErrorMessage() {
+  const errorMessage = document.querySelectorAll(".popup__input-error_active");
+  errorMessage.forEach((item) => {
+    item.textContent = "";
+    item.classList.remove("popup__input-error_active");
+  });
+  const errorBorder = document.querySelectorAll(".popup__border-error");
+  errorBorder.forEach((item) => {
+    item.classList.remove("popup__border-error");
+  });
+}
 
 // Вызовем функцию
 enableValidation(config);
