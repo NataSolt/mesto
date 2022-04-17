@@ -1,3 +1,5 @@
+import { Card, initialCards } from "./cards.js";
+import { Validate, config } from "./validate.js";
 // кнопка открытия попапа
 const profileAddBtn = document.querySelector(".profile__add-button");
 const profileBtnCard = document.querySelector(".profile__button-card");
@@ -30,40 +32,18 @@ const bigImg = document.querySelector(".popup-img__photo");
 //подпись к картинке
 const imgCaption = document.querySelector(".popup-img__caption");
 
-
-
 //создание карточки----------------------------------------------------------------
 function renderCard(cardName, cardLink) {
   //шаблон карточки
-  const card = cardTemplate.querySelector(".card").cloneNode(true); //клонируем
-  const cardImg = card.querySelector(".card__image");
-  card.querySelector(".card__title").textContent = cardName; //текст
-  cardImg.src = cardLink; //картинка
-  cardImg.alt = cardName; //название
-  //лайк
-  card.querySelector(".card__like").addEventListener("click", likeCard);
-  //удаление
-  card.querySelector(".card__trash").addEventListener("click", removeCard);
-  // слушатель открытие попапа с картинкой
-  cardImg.addEventListener("click", openImg);
-  return card;
+  const card = new Card(cardName, cardLink);
+  const cardElement = card.getNewCard();
+  return cardElement;
 }
 
 //отображение карточек из массива
 initialCards.forEach((card) => {
   cards.append(renderCard(card.name, card.link));
 });
-
-//переключение состояний значка "лайк"
-function likeCard(event) {
-  const card = event.target;
-  card.classList.toggle("card__like_active");
-}
-//удаление карточки
-function removeCard(event) {
-  const card = event.target.closest(".card");
-  card.remove();
-}
 
 //отправка формы профайл попапа
 function handleProfileFormSubmit(evt) {
@@ -81,36 +61,30 @@ function addCardSubmitHandler(evt) {
   evt.currentTarget.reset();
 }
 
-// открытие попапа картинки
-function openImg(event) {
-  imgCaption.textContent = event.target.alt;
-  bigImg.src = event.target.src;
-  bigImg.alt = event.target.alt;
-  openPopup(popupImage);
-}
-
 //фукция попапа редактирования
 function handleProfileAddBtnClick() {
   openPopup(popupProfile);
   inputName.value = profileName.textContent;
   inputJob.value = profileJob.textContent;
-  closeErrorMessage();
+  //closeErrorMessage();
+  profileValidate.closeErrorMessage();
 }
-
 
 //фукция попапа карточки
 function handleProfileBtnCardClick() {
   openPopup(popupCard);
   inputTitle.value = "";
   inputLink.value = "";
-  closeErrorMessage();
-  disabledBtn();
+  //closeErrorMessage();
+  //disabledBtn();
+  newCardValidate.closeErrorMessage();
+  newCardValidate.disabledBtn();
 }
 
 //функция попапа закрытия профайла
 function handleProfileCloseClick() {
   closePopup(popupProfile);
-  }
+}
 
 //функция закрытие попапа карточки
 function handlePopupCardCloseClick() {
@@ -120,7 +94,6 @@ function handlePopupCardCloseClick() {
 //функция закрытие попапа картинки
 function handlePopupImgCloseClick() {
   closePopup(popupImage);
-
 }
 
 //слушатель отправки формы карточки
@@ -145,7 +118,6 @@ const closePopupEsc = (popup) => {
 };
 // И дальше внутри коллбэка у нас есть объект event и мы можем узнать в каком месте произошел клик:
 const handleEscUp = (evt) => {
-  
   if (evt.key === "Escape") {
     const activePopup = document.querySelector(".popup_opened");
     closePopupEsc(activePopup);
@@ -161,8 +133,8 @@ const openPopup = function (popup) {
 //попапы закрытие
 function closePopup(popup) {
   popup.classList.remove("popup_opened");
-  document.removeEventListener('keydown', handleEscUp);
-  }
+  document.removeEventListener("keydown", handleEscUp);
+}
 
 //функция закрытия попап картинки на оверлее
 popupImage.addEventListener("click", (evt) => {
@@ -197,3 +169,9 @@ popupCard.addEventListener("click", (evt) => {
   }
 });
 
+//-------------------------------
+const profileValidate = new Validate(config, popupFormProfile);
+const newCardValidate = new Validate(config, popupFormAdd);
+profileValidate.enableValidation();
+newCardValidate.enableValidation();
+export { openPopup, popupImage, imgCaption, bigImg };
