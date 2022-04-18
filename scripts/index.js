@@ -1,5 +1,6 @@
-import { Card, initialCards } from "./cards.js";
-import { Validate, config } from "./validate.js";
+import { Card } from "./cards.js";
+import { Validate } from "./validate.js";
+import { config, initialCards } from "./constants.js";
 // кнопка открытия попапа
 const profileAddBtn = document.querySelector(".profile__add-button");
 const profileBtnCard = document.querySelector(".profile__button-card");
@@ -66,7 +67,6 @@ function handleProfileAddBtnClick() {
   openPopup(popupProfile);
   inputName.value = profileName.textContent;
   inputJob.value = profileJob.textContent;
-  //closeErrorMessage();
   profileValidate.closeErrorMessage();
 }
 
@@ -75,8 +75,6 @@ function handleProfileBtnCardClick() {
   openPopup(popupCard);
   inputTitle.value = "";
   inputLink.value = "";
-  //closeErrorMessage();
-  //disabledBtn();
   newCardValidate.closeErrorMessage();
   newCardValidate.disabledBtn();
 }
@@ -111,19 +109,6 @@ popupCardClose.addEventListener("click", handlePopupCardCloseClick);
 //слушатель закрытие попапа картинки
 popupImgClose.addEventListener("click", handlePopupImgCloseClick);
 
-//слушатель закрытие попапов escape
-const closePopupEsc = (popup) => {
-  document.removeEventListener("keydown", handleEscUp); // удаляем событие keydown
-  popup.classList.remove("popup_opened"); // скрываем попап
-};
-// И дальше внутри коллбэка у нас есть объект event и мы можем узнать в каком месте произошел клик:
-const handleEscUp = (evt) => {
-  if (evt.key === "Escape") {
-    const activePopup = document.querySelector(".popup_opened");
-    closePopupEsc(activePopup);
-  }
-};
-
 //попапы открытие
 const openPopup = function (popup) {
   popup.classList.add("popup_opened");
@@ -132,9 +117,16 @@ const openPopup = function (popup) {
 
 //попапы закрытие
 function closePopup(popup) {
-  popup.classList.remove("popup_opened");
-  document.removeEventListener("keydown", handleEscUp);
+  document.removeEventListener("keydown", handleEscUp); // удаляем событие keydown
+  popup.classList.remove("popup_opened"); // скрываем попап
 }
+// И дальше внутри коллбэка у нас есть объект event и мы можем узнать в каком месте произошел клик:
+const handleEscUp = (evt) => {
+  if (evt.key === "Escape") {
+    const activePopup = document.querySelector(".popup_opened");
+    closePopup(activePopup);
+  }
+};
 
 //функция закрытия попап картинки на оверлее
 popupImage.addEventListener("click", (evt) => {

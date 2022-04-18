@@ -1,13 +1,3 @@
-//объект
-const config = {
-  form: ".popup-form",
-  input: ".popup-input",
-  submitButton: ".popup__submit",
-  inactiveButton: "popup__button_inactive",
-  inputError: "popup__border-error",
-  spanError: "popup__input-error_active"
-};
-
 class Validate {
   constructor(setting, form) {
     this._form = form;
@@ -93,25 +83,17 @@ class Validate {
 
   // функция блокирования кнопки попапа карточки при открытии
   disabledBtn() {
-    const popupSubmitCard = this._form.querySelector(".popup__submit-card");
-    popupSubmitCard.setAttribute("disabled", true);
-    popupSubmitCard.classList.add(this._inactiveButton);
+    const button = this._form.querySelector(this._submitButton);
+    button.setAttribute("disabled", true);
+    button.classList.add(this._inactiveButton);
   }
 
   //очищение сообщения об ошибке
   closeErrorMessage() {
-    const errorMessage = this._form.querySelectorAll(
-      ".popup__input-error_active"
-    );
-    errorMessage.forEach((item) => {
-      item.textContent = "";
-      item.classList.remove(this._spanError);
-    });
-    const errorBorder = this._form.querySelectorAll(".popup__border-error");
-    errorBorder.forEach((item) => {
-      item.classList.remove(this._inputError);
+    this._inputList.forEach((item) => {
+      this._hideInputError(item);
     });
   }
 }
 
-export { Validate, config };
+export { Validate };
