@@ -83,9 +83,8 @@ class Validate {
 
   // функция блокирования кнопки попапа карточки при открытии
   disabledBtn() {
-    const button = this._form.querySelector(this._submitButton);
-    button.setAttribute("disabled", true);
-    button.classList.add(this._inactiveButton);
+    this._buttonElement.setAttribute("disabled", true);
+    this._buttonElement.classList.add(this._inactiveButton);
   }
 
   //очищение сообщения об ошибке
