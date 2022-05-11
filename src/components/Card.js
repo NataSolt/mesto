@@ -1,13 +1,14 @@
 class Card {
-  constructor(name, image, handleCardClick) {
+  constructor(name, image, cardSelector, handleCardClick) {
     this._name = name;
     this._image = image;
+    this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick;
   }
   //клонируем карточку
   _getTemplate() {
     const element = document
-      .querySelector(".card-template")
+      .querySelector(this._cardSelector)
       .content.querySelector(".card")
       .cloneNode(true);
 
@@ -16,7 +17,7 @@ class Card {
 
   //удаление карточки
   _handleRemoveCard() {
-    this._element = document.querySelector(".card");
+    //this._element = document.querySelector(".card");
     this._element.remove();
     this._element = null;
   }
@@ -28,22 +29,22 @@ class Card {
   }
 
   _setEventListeners() {
-    this._cardImg = this._element.querySelector(".card__image");
     this._element
       .querySelector(".card__like")
       .addEventListener("click", this._handleLikeCard);
     this._element
       .querySelector(".card__trash")
       .addEventListener("click", () => this._handleRemoveCard());
-    this._cardImg.addEventListener("click", () =>
-      this._handleCardClick(this._name, this._image)
-    );
+    this._element
+      .querySelector(".card__image")
+      .addEventListener("click", () =>
+        this._handleCardClick(this._name, this._image)
+      );
   }
 
   // создаем карточку
   getNewCard() {
     this._element = this._getTemplate();
-
     const cardImg = this._element.querySelector(".card__image");
     this._setEventListeners();
     this._element.querySelector(".card__title").textContent = this._name; //текст

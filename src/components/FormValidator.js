@@ -1,4 +1,4 @@
-class Validate {
+class FormValidator {
   constructor(setting, form) {
     this._form = form;
     this._input = setting.input;
@@ -38,12 +38,11 @@ class Validate {
 
   // Функция принимает массив полей ввода
   // и элемент кнопки, состояние которой нужно менять
-  _toggleButtonState = (inputList) => {
+  _toggleButtonState = () => {
     // Если есть хотя бы один невалидный инпут
-    if (this._hasInvalidInput(inputList)) {
+    if (this._hasInvalidInput()) {
       // сделай кнопку неактивной
-      this._buttonElement.setAttribute("disabled", true);
-      this._buttonElement.classList.add(this._inactiveButton);
+      this.disabledBtn();
     } else {
       // иначе сделай кнопку активной
       this._buttonElement.removeAttribute("disabled");
@@ -51,7 +50,7 @@ class Validate {
     }
   };
 
-  _setEventListeners = (form) => {
+  _setEventListeners = () => {
     this._toggleButtonState();
     // Обойдём все элементы полученной коллекции
     this._inputList.forEach((inputElement) => {
@@ -71,7 +70,7 @@ class Validate {
   };
 
   // Функция принимает массив полей
-  _hasInvalidInput = (inputList) => {
+  _hasInvalidInput = () => {
     // проходим по этому массиву методом some
     return this._inputList.some((inputElement) => {
       // Если поле не валидно, колбэк вернёт true
@@ -95,4 +94,4 @@ class Validate {
   }
 }
 
-export { Validate };
+export { FormValidator };
