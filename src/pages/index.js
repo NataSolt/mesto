@@ -48,8 +48,8 @@ const popupImg = new PopupWithImage(".popup-img");
 
 function createCard(name, link) {
   const card = new Card(name, link, ".card-template", handleCardClick);
-  const element = card.getNewCard();
-  cardList.addItem(element);
+  card.getNewCard();
+  return card.getNewCard();
 }
 
 //создаем и добавляем карточки и из массива и добавленные пользователям
@@ -57,10 +57,8 @@ const cardList = new Section(
   {
     items: initialCards,
     renderer: (item) => {
-      createCard(item.name, item.link, handleCardClick);
-      // const card = new Card(item.name, item.link, handleCardClick);
-      // const element = card.getNewCard();
-      // cardList.addItem(element);
+      const newCardElement = createCard(item.name, item.link);
+      cardList.addItem(newCardElement);
     },
   },
   ".cards"
@@ -74,10 +72,8 @@ const handleProfile = new PopupWithForm(".popup-profile", (data) => {
 
 //создание карточки попапа добавления карточки
 const handleCard = new PopupWithForm(".popup-card", (data) => {
-  createCard(data.place, data.link, handleCardClick);
-  // const card = new Card(data.place, data.link, handleCardClick);
-  // const element = card.getNewCard();
-  // cardList.addItem(element);
+  const newCardElement = createCard(data.place, data.link);
+  cardList.addItem(newCardElement);
 });
 
 //открытие большого попапа
@@ -91,8 +87,10 @@ popupImg.setEventListeners();
 
 //Слушатель попапа добавлеия карточки
 profileAddBtn.addEventListener("click", function () {
-  inputName.value = profileName.textContent;
-  inputJob.value = profileJob.textContent;
+  const info = userInfo.getUserInfo();
+
+  inputName.value = info.name;
+  inputJob.value = info.job;
   profileValidate.closeErrorMessage();
   handleProfile.open();
 });
