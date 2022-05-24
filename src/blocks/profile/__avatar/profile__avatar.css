@@ -7,6 +7,8 @@
   height: 120px;
 }
 
+
+
 @media (max-width: 768px) {
   .profile__avatar {
     margin-bottom: 20px;

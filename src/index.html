@@ -17,11 +17,13 @@
       </header>
       <main class="content">
         <section class="profile">
+          <div class="profile__avatar-container">
           <img
             src="<%=require('./images/Avatar.svg')%>"
             alt="портрет Жак-Ив Кусто"
             class="profile__avatar"
           />
+        </div>
           <div class="profile__info">
             <div class="profile__container">
               <h1 class="profile__name">Жак-Ив Кусто</h1>
@@ -44,8 +46,43 @@
       <footer class="footer">
         <p class="footer__content">© 2020 Mesto Russia</p>
       </footer>
+      <!---------------------------------->
+      <section class="popup popup-avatar">
+        <div class="popup-avatar__container popup__container">
+          <h2 class="popup-avatar__title">Обновить аватар</h2>
+          <form class="popup-avatar__form popup-form" name="form-avatar" novalidate>
+            
+            <label class="popup__lable">
+              <input
+                id="input-url"
+                type="url"
+                name="avatar"
+                class="popup-avatar__text popup-avatar__text_type_link popup-input"
+                placeholder="Ссылка на изображение"
+                value=""
+                required
+              />
+              <span class="popup__input-error input-url-error"></span>
+            </label>
+            <button
+              class="popup__submit popup__submit-avatar"
+              aria-label="кнопка отправить"
+              type="submit"
+              disabled="true"
+            >
+            Сохранить
+            </button>
+          </form>
+          <button
+            type="button"
+            class="popup-avatar__close popup__close"
+            aria-label="крест отмена"
+          ></button>
+        </div>
+      </section>
+      <!---------------------------------->
       <section class="popup popup-profile">
-        <div class="popup-profile__container">
+        <div class="popup-profile__container popup__container">
           <h2 class="popup-profile__title">Редактировать профиль</h2>
           <form
             class="popup-profile__form popup-form"
@@ -69,7 +106,7 @@
               <input
                 id="input-job"
                 type="text"
-                name="userjob"
+                name="about"
                 class="popup-profile__text popup-profile__text_type_job popup-input"
                 value="Исследователь океана"
                 minlength="2"
@@ -95,7 +132,7 @@
         </div>
       </section>
       <section class="popup popup-card">
-        <div class="popup-card__container">
+        <div class="popup-card__container popup__container">
           <h2 class="popup-card__title">Новое место</h2>
           <form class="popup-card__form popup-form" name="form-card" novalidate>
             <label class="popup__lable">
@@ -151,17 +188,46 @@
           ></button>
         </div>
       </section>
+      <!---------------------------------->
+      <section class="popup popup-delite">
+        <div class="popup-delite__container popup__container">
+          <h2 class="popup-delite__title">Вы уверены?</h2>
+          <form
+            class="popup-delite__form popup-form"
+            name="form-profile"
+            novalidate
+          >
+            <button
+              class="popup__submit popup__submit-delite"
+              aria-label="кнопка отправить"
+              type="submit"
+              disabled="true"
+            >
+              Да
+            </button>
+          </form>
+          <button
+            type="button"
+            class="popup-delite__close popup__close"
+            aria-label="крест отмена"
+          ></button>
+        </div>
+      </section>
+      <!---------------------------------->
       <template class="card-template">
         <article class="card">
           <img alt="аватар" class="card__image" />
           <div class="card__group">
             <h2 class="card__title"></h2>
+            <div class = "card__container-likes">
             <button
               class="card__like"
               aria-label="нравится"
               type="button"
             ></button>
+            <span class="cards__count-like">0</span>
           </div>
+        </div>
           <button
             type="button"
             aria-label="корзина"
