@@ -72,5 +72,8 @@ patchAvatar(avatar) {
     })
 }).then(this._errorHadler)
 }
+getAllPromise() {
+    return Promise.all([this.getCards(), this.getUsers()]);
+  }
 
 }

@@ -68,7 +68,7 @@ newCardValidate.enableValidation();
 avatarValidate.enableValidation();
 //--------------------------------------------------------
 
-// //btnTrash = document.querySelectorAll(".card__trash");
+// btnTrash = document.querySelectorAll(".card__trash");
 // const hendleDelite = new PopupWithForm (".popup-delite")
 // hendleDelite .setEventListeners();
 // btnTrash.addEventListener('click', function() {
@@ -109,35 +109,70 @@ function uploadingChanges(isLoading, element, content) {
 
 //   })
 //   .catch((err) => alert(err))
-const cardList = new Section({
-    renderer: (newCardElement) => {
-      cardList.addItem(createCard(newCardElement));
-    },
-  },
-  ".cards"
-)
-function createCard(name, link) {
-  const card = new Card(name, link, ".card-template", handleCardClick);
-  card.getNewCard();
-  return card.getNewCard('prepend');
-}
-//добавление массива
-const createApiCards = apiCards.getCards();
-createApiCards.then((data) => {
-  //создаем и добавляем карточки и из массива и добавленные пользователям
-const cardList = new Section(
-  {
-    items: data,
-    renderer: (data) => {
-      const newCardElement = createCard(data.name, data.link);
-      cardList.addItem(newCardElement);
-    },
-  },
-  ".cards"
-)
-cardList.renderItem();
+// const cardList = new Section({
+//     renderer: (newCardElement) => {
+//       createCard(newCardElement);
+//     },
+//   },
+//   ".cards"
+// )
+ 
+// const cardList = new Section(
+//   {
+//     renderer: (item) => {
+//       createCard(item);
+//     },
+//   },
+//   ".cards"
+// );
+//cardList.renderItem();
+
 // return cardList;
 
+
+function createCard(item) {
+  const card = new Card(item, ".card-template", handleCardClick);
+  const element = card.getNewCard();
+  cardList.addItem(element);
+  
+}
+//создаем и добавляем карточки и из массива и добавленные пользователям
+const cardList = new Section(
+  {
+    renderer: (item) => {
+      createCard(item);
+    },
+  },
+  ".cards"
+)
+// const createCard = (item) => {
+//   const card = new Card(item, myId, ".template-item", {
+//     handleCardClick: () => {
+//       popupWithImage.open(item);
+//     },
+//     handleDelIconClick: (data) => {
+//       confirmDelCard.open(data);
+//     },
+//     handleLikeClick: (callbackCard) => {
+//       api
+//         .toggleLike(callbackCard._id, card.checkStatusLike())
+//         .then((newCard) => {
+//           card.updateData(newCard);
+//           card.toggleLike();
+//         })
+//         .catch((err) => console.log(err));
+//     },
+//   });
+//   const cardElement = card.generateCard();
+//   cardList.addItem(cardElement);
+// };
+let myId = "";
+//добавление массива
+apiCards.getAllPromise()
+.then(([getCards, getUsers]) => {
+  myId = getUsers._id;
+    userInfo.setUserInfo(getUsers);
+    cardList.renderItem(getCards);
 }).catch((err) => alert(err));
 
 
@@ -146,7 +181,7 @@ cardList.renderItem();
 const handleCard = new PopupWithForm(".popup-card",(data) => {
   apiCards.postCard(data)
   .then((data) => {
-    cardList.addItem(data);
+    createCard(data);
   handleCard.close();
   })
   //.then(createCard.renderItem(data))
@@ -197,4 +232,6 @@ handleAvatar.setEventListeners();
 handleProfile.setEventListeners();
 handleCard.setEventListeners();
 popupImg.setEventListeners();
+
+
 
