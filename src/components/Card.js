@@ -1,5 +1,3 @@
-import PopupDeleteCard from "./PopupDeleteCard";
-
 class Card {
   constructor(data, id, cardSelector, handleCardClick, { handleDelete },{handleLikeCard}) {
     this._data = data;
@@ -71,7 +69,6 @@ class Card {
    this._data.likes = data.likes;
  }
  toggleLike() {
-   //this._handleLikeCard(this._data);
    this._setLikeCount();
    this._changeColorLike();
  }
