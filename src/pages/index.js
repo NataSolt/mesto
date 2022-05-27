@@ -60,7 +60,7 @@ function handleCardClick(name, link) {
 
 profileValidate.enableValidation();
 newCardValidate.enableValidation();
-avatarValidate.enableValidation();
+//avatarValidate.enableValidation();
 //--------------------------------------------------------
 const apiCards = new Api({
   url: "https://mesto.nomoreparties.co/v1/cohort-41",
@@ -185,7 +185,7 @@ const handleAvatar = new PopupWithForm(".popup-avatar", (data) => {
 handleAvatar.setEventListeners();
 
 btnAvatar.addEventListener("click", function () {
-  avatarValidate.closeErrorMessage();
+  //avatarValidate.closeErrorMessage();
   // newCardValidate.closeErrorMessage();
   // newCardValidate.disabledBtn();
   handleAvatar.open();
