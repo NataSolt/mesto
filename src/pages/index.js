@@ -2,7 +2,7 @@ import "./index.css";
 import { Card } from "../components/Card.js";
 import { FormValidator } from "../components/FormValidator.js";
 import { config } from "../utils/constants.js";
-import { Section } from "../components/Section.js/index.js";
+import { Section } from "../components/Section.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
@@ -58,16 +58,6 @@ function handleCardClick(name, link) {
   popupImg.open({ name, link });
 }
 
-//Слушатель попапа добавлеия карточки
-profileAddBtn.addEventListener("click", function () {
-  const info = userInfo.getUserInfo();
-
-  inputName.value = info.name;
-  inputJob.value = info.about;
-  profileValidate.closeErrorMessage();
-  handleProfile.open();
-});
-
 profileValidate.enableValidation();
 newCardValidate.enableValidation();
 avatarValidate.enableValidation();
@@ -90,7 +80,6 @@ function saveChange(isLoading, element, content) {
 //попап подтверждения удаления
 const handleDeleteCard = new PopupDeleteCard(".popup-delete", {
   handleDeleteItem: (card) => {
-    saveChange(true, handleDeleteCard.submitButton, "Удаление...");
     apiCards
       .deleteCard(card._cardId)
       .then(() => {
@@ -98,7 +87,6 @@ const handleDeleteCard = new PopupDeleteCard(".popup-delete", {
         handleDeleteCard.close();
       })
       .catch((arr) => alert(arr))
-      .finally(() => saveChange(false, handleCard.submitButton, "Да"));
   },
 });
 handleDeleteCard.setEventListeners();
@@ -162,6 +150,15 @@ const handleCard = new PopupWithForm(".popup-card", (data) => {
       alert(err);
     })
     .finally(() => saveChange(false, handleCard.submitButton, "Сохранить"));
+});
+
+//Слушатель попапа добавлеия карточки
+profileAddBtn.addEventListener("click", function () {
+  const info = userInfo.getUserInfo();
+  inputName.value = info.name;
+  inputJob.value = info.about;
+  profileValidate.closeErrorMessage();
+  handleProfile.open();
 });
 
 //Слушатель попапа добавлеия карточки

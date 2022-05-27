@@ -62,7 +62,6 @@ patchUsers(data) {
 }
 // замена данных аватара
 patchAvatar(data) {
-    console.log(JSON.stringify({avatar:data['avatar']}));
     return fetch(`${this._url}/users/me/avatar`, {
         method:'PATCH',
         headers: this._headers,

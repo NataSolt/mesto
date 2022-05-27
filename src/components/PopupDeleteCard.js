@@ -18,7 +18,7 @@ export class PopupDeleteCard extends Popup {
       evt.preventDefault();
       //обновить форму
       this._handleDeleteItem(this._cardInfo);
-      this.close();
+      //this.close();
     });
   }
 }
