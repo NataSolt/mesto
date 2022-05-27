@@ -7,6 +7,7 @@ import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
 import { Api } from "../components/Api.js"
+import { PopupDeleteCard } from "../components/PopupDeleteCard";
 // кнопка открытия попапа
 const btnAvatar = document.querySelector(".profile__avatar-container");
 const profileAddBtn = document.querySelector(".profile__add-button");
@@ -67,21 +68,6 @@ profileValidate.enableValidation();
 newCardValidate.enableValidation();
 avatarValidate.enableValidation();
 //--------------------------------------------------------
-
-// btnTrash = document.querySelectorAll(".card__trash");
-// const hendleDelite = new PopupWithForm (".popup-delite")
-// hendleDelite .setEventListeners();
-// btnTrash.addEventListener('click', function() {
-//   hendleDelite.open();
-// })
-
-// const apiUser = new Api({
-//   url:"https://nomoreparties.co/v1/cohort-41/users/me", 
-//   headers:{
-//   "Content-Type": "application/json",
-//   "authorization": "32ffaefa-9d9c-436d-9639-a2500716ba37"},
-// })
-
 const apiCards = new Api({
   url:"https://mesto.nomoreparties.co/v1/cohort-41", 
   headers:{
@@ -90,7 +76,7 @@ const apiCards = new Api({
   "Content-Type": "application/json"}
   
 });
-function uploadingChanges(isLoading, element, content) {
+function saveChange(isLoading, element, content) {
   if (isLoading) {
     element.textContent = 'Сохранение...'
   } else {
@@ -98,44 +84,36 @@ function uploadingChanges(isLoading, element, content) {
   }
 }
 
-// Promise.all([apiCards.getUsers(), apiCards.getCards()])
-//   .then(([userData, cardsData])=>{
-
-//     userInfo.setUserInfo(userData);
-//     userInfo.userId = userData._id
-    
-//     section.data = cardsData;
-//     section.renderItems();
-
-//   })
-//   .catch((err) => alert(err))
-// const cardList = new Section({
-//     renderer: (newCardElement) => {
-//       createCard(newCardElement);
-//     },
-//   },
-//   ".cards"
-// )
- 
-// const cardList = new Section(
-//   {
-//     renderer: (item) => {
-//       createCard(item);
-//     },
-//   },
-//   ".cards"
-// );
-//cardList.renderItem();
-
-// return cardList;
+//попап подтверждения удаления
+const handleDeleteCard = new PopupDeleteCard(".popup-delete", {
+  handleDeleteItem: (card) => 
+  {apiCards.deleteCard(card._cardId)
+ .then(() => {
+        card.removeItem();
+        handleDeleteCard.close();
+      })
+      .catch((arr) => alert(arr));},
+    });
+handleDeleteCard.setEventListeners();
 
 
-function createCard(item) {
-  const card = new Card(item, ".card-template", handleCardClick);
+const createCard = (item) => {
+  const card = new Card(item, userId, ".card-template", handleCardClick, {
+    handleDelete: (card) => {
+      handleDeleteCard.open(card);
+      }},
+      {handleLikeCard: (callbackCard) => {
+        apiCards.toggleLike(callbackCard._id, card.checkStatusLike())
+        .then((newCard) => { 
+          card.updateData(newCard);
+          card.toggleLike(callbackCard._id, card.checkStatusLike());
+        })
+        .catch((arr) => alert(arr));
+      }}
+)
   const element = card.getNewCard();
   cardList.addItem(element);
-  
-}
+  }
 //создаем и добавляем карточки и из массива и добавленные пользователям
 const cardList = new Section(
   {
@@ -145,50 +123,29 @@ const cardList = new Section(
   },
   ".cards"
 )
-// const createCard = (item) => {
-//   const card = new Card(item, myId, ".template-item", {
-//     handleCardClick: () => {
-//       popupWithImage.open(item);
-//     },
-//     handleDelIconClick: (data) => {
-//       confirmDelCard.open(data);
-//     },
-//     handleLikeClick: (callbackCard) => {
-//       api
-//         .toggleLike(callbackCard._id, card.checkStatusLike())
-//         .then((newCard) => {
-//           card.updateData(newCard);
-//           card.toggleLike();
-//         })
-//         .catch((err) => console.log(err));
-//     },
-//   });
-//   const cardElement = card.generateCard();
-//   cardList.addItem(cardElement);
-// };
-let myId = "";
+let userId = "";
 //добавление массива
 apiCards.getAllPromise()
 .then(([getCards, getUsers]) => {
-  myId = getUsers._id;
+  userId = getUsers._id;
     userInfo.setUserInfo(getUsers);
-    cardList.renderItem(getCards);
+    cardList.renderItem(getCards.reverse());
 }).catch((err) => alert(err));
-
-
 
 //добавление карточки
 const handleCard = new PopupWithForm(".popup-card",(data) => {
+  saveChange(true, handleCard.submitButton);
   apiCards.postCard(data)
   .then((data) => {
     createCard(data);
   handleCard.close();
   })
-  //.then(createCard.renderItem(data))
-  //cardList.addItem(data)
     .catch((err) => {
       alert(err);
 })
+.finally(()=>(
+  saveChange(false, handleCard.submitButton, 'Сохранить')
+))
 
 });
 
@@ -198,27 +155,31 @@ profileBtnCard.addEventListener("click", function () {
   newCardValidate.disabledBtn();
   handleCard.open();
 });
-
+//---------------------------------------
 const handleAvatar = new PopupWithForm(".popup-avatar",(data) => {
+  saveChange(true, handleAvatar.submitButton);
  apiCards.patchAvatar(data)
   .then(data => {userInfo.setAvatarInfo(data)
     handleAvatar.close();
   })
   .catch((err) => {
     alert(err);
-})})
+})
+saveChange(false, handleAvatar.submitButton, 'Сохранить')
+})
 
 handleAvatar.setEventListeners();
+
 btnAvatar.addEventListener("click", function () {
   avatarValidate.closeErrorMessage();
   // newCardValidate.closeErrorMessage();
   // newCardValidate.disabledBtn();
   handleAvatar.open();
 });
-
-
+//--------------------------------------
 //создание попап профайла
 const handleProfile = new PopupWithForm(".popup-profile", (data) => {
+  saveChange(true, handleProfile.submitButton);
   apiCards.patchUsers(data)
   .then(data => {userInfo.setUserInfo(data)
     handleProfile.close()}
@@ -226,9 +187,8 @@ const handleProfile = new PopupWithForm(".popup-profile", (data) => {
 .catch((err) => {
     alert(err);
 })
-  
+saveChange(false, handleProfile.submitButton, 'Сохранить')
 });
-handleAvatar.setEventListeners();
 handleProfile.setEventListeners();
 handleCard.setEventListeners();
 popupImg.setEventListeners();

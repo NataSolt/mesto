@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
+
     <title>Места России</title>
   </head>
   <body class="page">
@@ -18,12 +18,12 @@
       <main class="content">
         <section class="profile">
           <div class="profile__avatar-container">
-          <img
-            src="<%=require('./images/Avatar.svg')%>"
-            alt="портрет Жак-Ив Кусто"
-            class="profile__avatar"
-          />
-        </div>
+            <img
+              src="<%=require('./images/Avatar.svg')%>"
+              alt="портрет Жак-Ив Кусто"
+              class="profile__avatar"
+            />
+          </div>
           <div class="profile__info">
             <div class="profile__container">
               <h1 class="profile__name">Жак-Ив Кусто</h1>
@@ -50,8 +50,11 @@
       <section class="popup popup-avatar">
         <div class="popup-avatar__container popup__container">
           <h2 class="popup-avatar__title">Обновить аватар</h2>
-          <form class="popup-avatar__form popup-form" name="form-avatar" novalidate>
-            
+          <form
+            class="popup-avatar__form popup-form"
+            name="form-avatar"
+            novalidate
+          >
             <label class="popup__lable">
               <input
                 id="input-url"
@@ -70,7 +73,7 @@
               type="submit"
               disabled="true"
             >
-            Сохранить
+              Сохранить
             </button>
           </form>
           <button
@@ -177,6 +180,29 @@
           ></button>
         </div>
       </section>
+      <section class="popup popup-delete" aria-label="удаление">
+        <div class="popup-delete__container popup__container">
+          <h2 class="popup-delete__title">Вы уверены?</h2>
+          <form
+            class="popup-delete__form popup-form"
+            name="form-delete"
+            novalidate
+          >
+            <button
+              class="popup__submit popup__submit-delete"
+              aria-label="кнопка отправить"
+              type="submit"
+            >
+              Да
+            </button>
+          </form>
+          <button
+            type="button"
+            class="popup-delete__close popup__close"
+            aria-label="крест отмена"
+          ></button>
+        </div>
+      </section>
       <section class="popup popup-img" aria-label="фотография">
         <div class="popup-img__container">
           <img src="#" alt="#" class="popup-img__photo" />
@@ -189,45 +215,22 @@
         </div>
       </section>
       <!---------------------------------->
-      <section class="popup popup-delite">
-        <div class="popup-delite__container popup__container">
-          <h2 class="popup-delite__title">Вы уверены?</h2>
-          <form
-            class="popup-delite__form popup-form"
-            name="form-profile"
-            novalidate
-          >
-            <button
-              class="popup__submit popup__submit-delite"
-              aria-label="кнопка отправить"
-              type="submit"
-              disabled="true"
-            >
-              Да
-            </button>
-          </form>
-          <button
-            type="button"
-            class="popup-delite__close popup__close"
-            aria-label="крест отмена"
-          ></button>
-        </div>
-      </section>
+
       <!---------------------------------->
       <template class="card-template">
         <article class="card">
           <img alt="аватар" class="card__image" />
           <div class="card__group">
             <h2 class="card__title"></h2>
-            <div class = "card__container-likes">
-            <button
-              class="card__like"
-              aria-label="нравится"
-              type="button"
-            ></button>
-            <span class="cards__count-like">0</span>
+            <div class="card__container-likes">
+              <button
+                class="card__like"
+                aria-label="нравится"
+                type="button"
+              ></button>
+              <span class="card__count-like">0</span>
+            </div>
           </div>
-        </div>
           <button
             type="button"
             aria-label="корзина"
