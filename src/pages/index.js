@@ -90,13 +90,15 @@ function saveChange(isLoading, element, content) {
 //попап подтверждения удаления
 const handleDeleteCard = new PopupDeleteCard(".popup-delete", {
   handleDeleteItem: (card) => {
+    saveChange(true, handleDeleteCard.submitButton, "Удаление...");
     apiCards
       .deleteCard(card._cardId)
       .then(() => {
         card.removeItem();
         handleDeleteCard.close();
       })
-      .catch((arr) => alert(arr));
+      .catch((arr) => alert(arr))
+      .finally(() => saveChange(false, handleCard.submitButton, "Да"));
   },
 });
 handleDeleteCard.setEventListeners();
@@ -179,8 +181,8 @@ const handleAvatar = new PopupWithForm(".popup-avatar", (data) => {
     })
     .catch((err) => {
       alert(err);
-    });
-  saveChange(false, handleAvatar.submitButton, "Сохранить");
+    })
+    .finally(() => saveChange(false, handleAvatar.submitButton, "Сохранить"));
 });
 
 handleAvatar.setEventListeners();
@@ -203,8 +205,8 @@ const handleProfile = new PopupWithForm(".popup-profile", (data) => {
     })
     .catch((err) => {
       alert(err);
-    });
-  saveChange(false, handleProfile.submitButton, "Сохранить");
+    })
+    .finally(() => saveChange(false, handleProfile.submitButton, "Сохранить"));
 });
 handleProfile.setEventListeners();
 handleCard.setEventListeners();
