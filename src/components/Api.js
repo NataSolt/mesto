@@ -4,7 +4,7 @@ export class Api {
         this._headers = headers;
     }
     //функция ошибки
-    _errorHadler = (res) => {
+    _checkResponse = (res) => {
         if (res.ok) {
             return res.json();
         }
@@ -15,7 +15,7 @@ export class Api {
         return fetch(`${this._url}/cards`, {
             method:'GET',
             headers: this._headers
-        }).then(this._errorHadler)
+        }).then(this._checkResponse)
     }
 // отправка карточки
 postCard(data) {
@@ -24,7 +24,7 @@ postCard(data) {
       headers: this._headers,
       body: JSON.stringify({name:data['place'], link:data['link']})
     })
-      .then(this._errorHadler)
+      .then(this._checkResponse)
   }
 //удаление карточки
 
@@ -32,7 +32,7 @@ deleteCard(id) {
     return fetch(`${this._url}/cards/${id}`, {
       method: "DELETE",
       headers: this._headers,
-    }).then(this._errorHadler);
+    }).then(this._checkResponse);
   }
 
 
@@ -41,7 +41,7 @@ toggleLike(id, status) {
     return fetch(`${this._url}/cards/${id}/likes`, {
         method: status ? 'DELETE' : 'PUT',
         headers: this._headers,
-    }).then(this._errorHadler)
+    }).then(this._checkResponse)
 }
 
 //отправка данных пользователя
@@ -49,7 +49,7 @@ getUsers() {
     return fetch(`${this._url}/users/me`, {
         method:'GET',
         headers: this._headers
-    }).then(this._errorHadler)
+    }).then(this._checkResponse)
 }
 //замена данных профайла
 patchUsers(data) {
@@ -58,7 +58,7 @@ patchUsers(data) {
         headers: this._headers,
         body: JSON.stringify({name:data['user'], about:data['about']}
     )
-}).then(this._errorHadler)
+}).then(this._checkResponse)
 }
 // замена данных аватара
 patchAvatar(data) {
@@ -67,7 +67,7 @@ patchAvatar(data) {
         headers: this._headers,
         body: JSON.stringify({avatar:data['avatar']}
     )
-}).then(this._errorHadler)
+}).then(this._checkResponse)
 }
 getAllPromise() {
     return Promise.all([this.getCards(), this.getUsers()]);

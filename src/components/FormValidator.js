@@ -42,7 +42,7 @@ class FormValidator {
     // Если есть хотя бы один невалидный инпут
     if (this._hasInvalidInput()) {
       // сделай кнопку неактивной
-      this.disabledBtn();
+      this.disableBtn();
     } else {
       // иначе сделай кнопку активной
       this._buttonElement.removeAttribute("disabled");
@@ -81,13 +81,13 @@ class FormValidator {
   };
 
   // функция блокирования кнопки попапа карточки при открытии
-  disabledBtn() {
+  disableBtn() {
     this._buttonElement.setAttribute("disabled", true);
     this._buttonElement.classList.add(this._inactiveButton);
   }
 
   //очищение сообщения об ошибке
-  closeErrorMessage() {
+  resetErrors() {
     this._inputList.forEach((item) => {
       this._hideInputError(item);
     });

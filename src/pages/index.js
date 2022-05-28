@@ -86,7 +86,7 @@ const handleDeleteCard = new PopupDeleteCard(".popup-delete", {
         card.removeItem();
         handleDeleteCard.close();
       })
-      .catch((arr) => alert(arr))
+      .catch((arr) => alert(arr));
   },
 });
 handleDeleteCard.setEventListeners();
@@ -138,18 +138,18 @@ apiCards
   .catch((err) => alert(err));
 
 //добавление карточки
-const handleCard = new PopupWithForm(".popup-card", (data) => {
-  saveChange(true, handleCard.submitButton);
+const cardPopup = new PopupWithForm(".popup-card", (data) => {
+  saveChange(true, cardPopup.submitButton);
   apiCards
     .postCard(data)
     .then((data) => {
       createCard(data);
-      handleCard.close();
+      cardPopup.close();
     })
     .catch((err) => {
       alert(err);
     })
-    .finally(() => saveChange(false, handleCard.submitButton, "Сохранить"));
+    .finally(() => saveChange(false, cardPopup.submitButton, "Сохранить"));
 });
 
 //Слушатель попапа добавлеия карточки
@@ -157,54 +157,53 @@ profileAddBtn.addEventListener("click", function () {
   const info = userInfo.getUserInfo();
   inputName.value = info.name;
   inputJob.value = info.about;
-  profileValidate.closeErrorMessage();
-  handleProfile.open();
+  profileValidate.resetErrors();
+  profilePopup.open();
 });
 
 //Слушатель попапа добавлеия карточки
 profileBtnCard.addEventListener("click", function () {
-  newCardValidate.closeErrorMessage();
-  newCardValidate.disabledBtn();
-  handleCard.open();
+  newCardValidate.resetErrors();
+  newCardValidate.disableBtn();
+  cardPopup.open();
 });
 //---------------------------------------
-const handleAvatar = new PopupWithForm(".popup-avatar", (data) => {
-  saveChange(true, handleAvatar.submitButton);
+const avatarPopup = new PopupWithForm(".popup-avatar", (data) => {
+  saveChange(true, avatarPopup.submitButton);
   apiCards
     .patchAvatar(data)
-    .then((data) => {
-      userInfo.setAvatarInfo(data);
-      handleAvatar.close();
+    .then((avatar) => {
+      userInfo.setUserInfo(avatar);
+      avatarPopup.close();
     })
     .catch((err) => {
       alert(err);
     })
-    .finally(() => saveChange(false, handleAvatar.submitButton, "Сохранить"));
+    .finally(() => saveChange(false, avatarPopup.submitButton, "Сохранить"));
 });
 
-handleAvatar.setEventListeners();
+avatarPopup.setEventListeners();
 
 btnAvatar.addEventListener("click", function () {
-  avatarValidate.closeErrorMessage();
-  // newCardValidate.closeErrorMessage();
-  // newCardValidate.disabledBtn();
-  handleAvatar.open();
+  avatarValidate.resetErrors();
+  avatarValidate.disableBtn();
+  avatarPopup.open();
 });
 //--------------------------------------
 //создание попап профайла
-const handleProfile = new PopupWithForm(".popup-profile", (data) => {
-  saveChange(true, handleProfile.submitButton);
+const profilePopup = new PopupWithForm(".popup-profile", (data) => {
+  saveChange(true, profilePopup.submitButton);
   apiCards
     .patchUsers(data)
     .then((data) => {
       userInfo.setUserInfo(data);
-      handleProfile.close();
+      profilePopup.close();
     })
     .catch((err) => {
       alert(err);
     })
-    .finally(() => saveChange(false, handleProfile.submitButton, "Сохранить"));
+    .finally(() => saveChange(false, profilePopup.submitButton, "Сохранить"));
 });
-handleProfile.setEventListeners();
-handleCard.setEventListeners();
+profilePopup.setEventListeners();
+cardPopup.setEventListeners();
 popupImg.setEventListeners();

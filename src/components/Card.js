@@ -1,7 +1,7 @@
 class Card {
   constructor(data, id, cardSelector, handleCardClick, { handleDelete },{handleLikeCard}) {
     this._data = data;
-    this._cardSelector = document.querySelector(cardSelector);
+    this._template = document.querySelector(cardSelector);
     this._name = data.name;
     this._link = data.link;
     this._myId = id;
@@ -13,12 +13,13 @@ class Card {
     this._handleLikeCard = handleLikeCard;
     this._deleteBtn = this._item.querySelector(".card__trash");
     this._likeBtn = this._item.querySelector(".card__like");
+    this._likeCount = this._item.querySelector(".card__count-like");
     this.hiddenTrashButton();
   }
 
   //клонируем карточку
   _getTemplate() {
-    return this._cardSelector.content.querySelector(".card").cloneNode(true);
+    return this._template.content.querySelector(".card").cloneNode(true);
   }
   //удаление значка корзины
   hiddenTrashButton() {
@@ -49,7 +50,7 @@ class Card {
     if(this.checkStatusLike()) {
       this._changeColorLike();
     }
-    this._likeCount = this._item.querySelector(".card__count-like");
+    
     this._setLikeCount(this._data.likes);
     const cardImg = this._item.querySelector(".card__image");
     this._setEventListeners();
