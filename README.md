@@ -10,7 +10,7 @@ ___
 ## Использованные технологии:
 
 * HTML5
-* CSS3  медиазапросы
+* CSS3
 * BEM
 * Flexbox
 * Grid Layout
