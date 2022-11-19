@@ -127,7 +127,7 @@ const cardList = new Section(
   ".cards"
 );
 let userId = "";
-//добавление массива
+
 apiCards
   .getAllPromise()
   .then(([getCards, getUsers]) => {
